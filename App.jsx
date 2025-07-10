@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-const ACCESS_KEY = "enterhere@";
+const ACCESS_KEY = "44c81e0cf0c44a1fb28d100f93e8a261";
 import APIForm from './APIForm';
 import Gallery from './Gallery';
 
@@ -37,27 +37,28 @@ export function App(props) {
     });
   }
 
-  const submitForm = () => {
-    if (inputs.url === "" || inputs.url === " ") {
-      alert("You forgot to submit an url!");
-    }
-    else {
-      // Your current logic to fill defaultValues directly on inputs (not best practice, but per your request)
-      let defaultValues = {
-        format: "jpeg",
-        no_ads: "true",
-        no_cookie_banners: "true",
-        width: "1920",
-        height: "1080",
-      };
-      for (const [key, value] of Object.entries(inputs)) {
-        if (value === "") {
-          inputs[key] = defaultValues[key];
-        }
+  const submitForm = (e) => {
+  e.preventDefault(); // 🛑 Prevent page reload
+
+  if (inputs.url === "" || inputs.url === " ") {
+    alert("You forgot to submit a URL!");
+  } else {
+    let defaultValues = {
+      format: "jpeg",
+      no_ads: "true",
+      no_cookie_banners: "true",
+      width: "1920",
+      height: "1080",
+    };
+    for (const [key, value] of Object.entries(inputs)) {
+      if (value === "") {
+        inputs[key] = defaultValues[key];
       }
-      makeQuery();
     }
+    makeQuery();
   }
+};
+
 
   const callAPI = async (query) => {
     const response = await fetch(query);
